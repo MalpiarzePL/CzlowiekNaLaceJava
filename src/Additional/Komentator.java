@@ -1,7 +1,6 @@
 package Additional;
 
 import java.util.Vector;
-import Additional.Constants;
 
 public class Komentator {
     private Vector<String> komentarze;

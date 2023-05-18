@@ -4,9 +4,6 @@ package Additional;
 import Swiat_i_org.*;
 import Swiat_i_org.Animals.*;
 import Swiat_i_org.Plants.*;
-import Additional.Constants;
-
-import javax.swing.*;
 import java.io.*;
 import java.util.Vector;
 
@@ -41,16 +38,10 @@ public class Zapisy {
     public Swiat wczytaj(){
         String filename = "zapis.txt";
         try{
-            File file = new File(filename);
             BufferedReader reader = new BufferedReader(new FileReader(filename));
             String line;
             Swiat world;
             String[] firstLine = reader.readLine().split(" ");
-//                Swiat.Typ typ = Swiat.Typ.Zwykly;
-//                if(firstLine[2].equals("Hex")){
-//                    typ = Swiat.Typ.Hex;
-//                }
-            ///NAPRAW ZAPISU TU BO SIE BEDZIE LOSOWO TWORZYLO
                 Vector<Organizm> orgs = new Vector<>();
             while ((line = reader.readLine()) != null){
                 String[] tokens = line.split(" ");

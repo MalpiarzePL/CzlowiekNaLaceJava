@@ -5,7 +5,6 @@ import Additional.Punkt;
 import Swiat_i_org.Organizm;
 import Swiat_i_org.Roslina;
 import Swiat_i_org.Zwierze;
-
 import java.awt.*;
 import java.util.Random;
 import java.util.Vector;

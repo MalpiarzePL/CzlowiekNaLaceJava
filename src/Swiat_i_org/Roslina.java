@@ -2,7 +2,6 @@ package Swiat_i_org;
 
 import Additional.Constants;
 import Additional.Punkt;
-
 import java.util.Random;
 
 public abstract class Roslina extends Organizm {

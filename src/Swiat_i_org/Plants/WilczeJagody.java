@@ -4,7 +4,6 @@ import Additional.Constants;
 import Additional.Punkt;
 import Swiat_i_org.Organizm;
 import Swiat_i_org.Roslina;
-
 import java.awt.*;
 import java.util.Random;
 

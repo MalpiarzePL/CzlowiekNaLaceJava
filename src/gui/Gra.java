@@ -7,11 +7,8 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import Additional.Constants;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import Additional.Zapisy;
-import com.sun.xml.internal.bind.v2.runtime.reflect.opt.Const;
+
 
 public class Gra  extends JFrame{
 
@@ -89,12 +86,6 @@ public class Gra  extends JFrame{
                 Swiat world = zapisy.wczytaj();
                 interfejs.setSwiat(world);
                 komentator.setKom(world.getKom());
-                /*interfejs.wysokosc = world.getWysokosc();
-                interfejs.szerokosc = world.getSzerokosc();
-                interfejs.wymiarPolaX = interfejs.wysokoscOkna/interfejs.szerokosc;
-                interfejs.wymiarPolaY = interfejs.wysokoscOkna/interfejs.wysokosc;
-                interfejs.wymiarPola = ((interfejs.wymiarPolaX>interfejs.wymiarPolaY)?interfejs.wymiarPolaX:interfejs.wymiarPolaY)*0.67;
-                */
                 interfejs.setWysokosc(world.getWysokosc());
                 interfejs.setSzerokosc(world.getSzerokosc());
                 interfejs.setWymiarPolaX(interfejs.getWysokoscOkna()/interfejs.getSzerokosc());
@@ -110,12 +101,6 @@ public class Gra  extends JFrame{
 
                 interfejs.setSwiat(SwZwykly.Baza());
                 komentator.setKom(interfejs.getSwiat().getKom());
-                /*interfejs.wysokosc = SwZwykly.Baza().getWysokosc();
-                interfejs.szerokosc = SwZwykly.Baza().getSzerokosc();
-                interfejs.wymiarPolaX = interfejs.wysokoscOkna/interfejs.szerokosc;
-                interfejs.wymiarPolaY = interfejs.wysokoscOkna/interfejs.wysokosc;
-                interfejs.wymiarPola = ((interfejs.wymiarPolaX>interfejs.wymiarPolaY)?interfejs.wymiarPolaX:interfejs.wymiarPolaY)*0.67;
-                */
                 interfejs.setWysokosc(SwZwykly.Baza().getWysokosc());
                 interfejs.setSzerokosc(SwZwykly.Baza().getSzerokosc());
                 interfejs.setWymiarPolaX(interfejs.getWysokoscOkna()/interfejs.getSzerokosc());
@@ -134,12 +119,6 @@ public class Gra  extends JFrame{
 
                 interfejs.setSwiat(SwHex.Baza());
                 komentator.setKom(interfejs.getSwiat().getKom());
-                /*interfejs.wysokosc = SwHex.Baza().getWysokosc();
-                interfejs.szerokosc = SwHex.Baza().getSzerokosc();
-                interfejs.wymiarPolaX = interfejs.wysokoscOkna/interfejs.szerokosc;
-                interfejs.wymiarPolaY = interfejs.wysokoscOkna/interfejs.wysokosc;
-                interfejs.wymiarPola = ((interfejs.wymiarPolaX>interfejs.wymiarPolaY)?interfejs.wymiarPolaX:interfejs.wymiarPolaY)*0.67;
-                */
                 interfejs.setWysokosc(SwHex.Baza().getWysokosc());
                 interfejs.setSzerokosc(SwHex.Baza().getSzerokosc());
                 interfejs.setWymiarPolaX(interfejs.getWysokoscOkna()/interfejs.getSzerokosc());
@@ -192,8 +171,7 @@ public class Gra  extends JFrame{
     }
     private void tworzNastepnaTuraBtn() {
 
-        tura = new JButton("nastepna tura");
-        //dziennikButton = new JButton("dziennik");
+        tura = new JButton("NASTEPNA TURA");
 
 
         tura.addActionListener(new ActionListener() {

@@ -5,7 +5,6 @@ import java.util.Vector;
 import Additional.*;
 import Swiat_i_org.Animals.*;
 import Swiat_i_org.Plants.*;
-import Additional.Constants;
 
 
 abstract public class Swiat {
@@ -13,13 +12,8 @@ abstract public class Swiat {
     private final int szerokosc;
     Vector<Organizm> organizmy;
     private Komentator kom;
-//    private Typ typ = Typ.Zwykly;
-    public int ruchCzlowieka = 0; //0-stoj 1-gora 2-dol 3-lewo 4-prawo 5-aktywacja mocy
+    public int ruchCzlowieka = 0; //0-stoj 1-gora 2-dol 3-lewo 4-prawo 5-aktywacja mocy 6,7- ruchy hexowe
 
-//    public enum Typ{
-//        Zwykly,
-//        Hex
-//    }
 
 
     public Swiat(int wys,int szer, Vector<Organizm>orgs){
@@ -97,13 +91,6 @@ abstract public class Swiat {
             org.setSwiat(this);
         }
     }
-//    public Swiat(int wys, int szer/*,Typ typ*/){
-//        this.wysokosc = wys;
-//        this.szerokosc = szer;
-//        organizmy = new Vector<>();
-//        kom = new Komentator();
-//        //this.typ = typ;
-//    }
 
     public boolean wlaczMoc(){
         for(Organizm org : organizmy){

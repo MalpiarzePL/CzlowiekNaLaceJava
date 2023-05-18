@@ -3,7 +3,6 @@ package Swiat_i_org.Plants;
 import Additional.Constants;
 import Additional.Punkt;
 import Swiat_i_org.Roslina;
-
 import java.awt.*;
 
 public class Mlecz extends Roslina {

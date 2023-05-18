@@ -3,7 +3,6 @@ package Swiat_i_org.Animals;
 import Additional.Constants;
 import Additional.Punkt;
 import Swiat_i_org.Zwierze;
-
 import java.awt.*;
 
 public class Owca extends Zwierze {

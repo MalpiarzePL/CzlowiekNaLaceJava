@@ -2,7 +2,6 @@ package Swiat_i_org;
 
 import Additional.*;
 import java.util.Random;
-import Additional.Constants;
 public abstract class Zwierze extends Organizm {
     public Punkt poprzedniaPozycja;
     public Zwierze(Punkt pkt, int sila, int inicjatywa){

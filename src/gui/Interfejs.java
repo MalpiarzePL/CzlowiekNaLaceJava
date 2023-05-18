@@ -257,14 +257,6 @@ public class Interfejs extends JPanel implements KeyListener, MouseListener {
 
                    }
 
- //               }
-/*                else{
-                    g.setColor(Color.GRAY);
-                    if(swiat instanceof SwZwykly) {
-                        g.drawRect(x * wymiarPolaX, y * wymiarPolaY, wymiarPolaX, wymiarPolaY);
-                    }
-                }*/
-
             }
 
         }

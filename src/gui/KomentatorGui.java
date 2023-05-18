@@ -2,10 +2,7 @@ package gui;
 
 import javax.swing.*;
 import java.awt.*;
-import java.util.Vector;
 import Additional.Constants;
-
-import Swiat_i_org.Swiat;
 import Additional.Komentator;
 
 public class KomentatorGui extends JPanel {

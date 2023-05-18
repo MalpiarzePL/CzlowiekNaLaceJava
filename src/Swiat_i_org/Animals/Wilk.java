@@ -2,15 +2,13 @@ package Swiat_i_org.Animals;
 
 import Additional.Constants;
 import Swiat_i_org.Zwierze;
-
 import java.awt.*;
 import Additional.Punkt;
 
 
 
 public class Wilk extends Zwierze{
-    public static final int SILA = 900;
-    public static final int INICJATYWA = 5;
+
 
     public Wilk(Punkt pkt){
         super(pkt,Constants.SILA_WILKA,Constants.INICJATYWA_WILKA);
