@@ -29,7 +29,7 @@ public class Interfejs extends JPanel implements KeyListener, MouseListener {
         this.wysokoscOkna = wysokoscOkna;
         wymiarPolaX = wysokoscOkna/szerokosc;
         wymiarPolaY = wysokoscOkna/wysokosc;
-        wymiarPola = ((wymiarPolaX>wymiarPolaY)?wymiarPolaX:wymiarPolaY)*0.67;
+        wymiarPola = ((wymiarPolaX>wymiarPolaY)?wymiarPolaY:wymiarPolaX)*0.67;
         this.swiat = swiat;
         this.nowePolozenie = new Punkt(0,0);
         setPreferredSize(new Dimension(wysokoscOkna,wysokoscOkna));
@@ -230,14 +230,14 @@ public class Interfejs extends JPanel implements KeyListener, MouseListener {
                     else {
                         int[] wspX = new int[6];
                         int[] wspY = new int[6];
-                        double xtemp =x+y*0.5;
-                        double ytemp = y+0.5;
-                        xtemp+=1;
+                        double helpX =x+y*0.5;
+                        double helpY = y+0.5;
+                        helpX+=1;
 
                         for (int i = 0; i < 6; i++) {
-                            int xval = (int) (xtemp * wymiarPola + wymiarPola /2
+                            int xval = (int) (helpX * wymiarPola + wymiarPola /2
                                     * Math.sin(i * 2 * Math.PI / 6D));
-                            int yval = (int) (ytemp * wymiarPola + wymiarPola /2
+                            int yval = (int) (helpY * wymiarPola + wymiarPola /2
                                     * Math.cos(i * 2 * Math.PI / 6D));
 
                             wspX[i] = xval;

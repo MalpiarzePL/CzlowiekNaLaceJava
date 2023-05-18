@@ -90,7 +90,7 @@ public class Gra  extends JFrame{
                 interfejs.setSzerokosc(world.getSzerokosc());
                 interfejs.setWymiarPolaX(interfejs.getWysokoscOkna()/interfejs.getSzerokosc());
                 interfejs.setWymiarPolaY(interfejs.getWysokoscOkna()/interfejs.getWysokosc());
-                interfejs.setWymiarPola(((interfejs.getWymiarPolaX()>interfejs.getWymiarPolaY())?interfejs.getWymiarPolaX():interfejs.getWymiarPolaY())*0.67);
+                interfejs.setWymiarPola(((interfejs.getWymiarPolaX()>interfejs.getWymiarPolaY())?interfejs.getWymiarPolaY():interfejs.getWymiarPolaX())*0.67);
                 paint(getGraphics());
             }
         });
@@ -105,7 +105,7 @@ public class Gra  extends JFrame{
                 interfejs.setSzerokosc(SwZwykly.Baza().getSzerokosc());
                 interfejs.setWymiarPolaX(interfejs.getWysokoscOkna()/interfejs.getSzerokosc());
                 interfejs.setWymiarPolaY(interfejs.getWysokoscOkna()/interfejs.getWysokosc());
-                interfejs.setWymiarPola(((interfejs.getWymiarPolaX()>interfejs.getWymiarPolaY())?interfejs.getWymiarPolaX():interfejs.getWymiarPolaY())*0.67);
+                interfejs.setWymiarPola(((interfejs.getWymiarPolaX()>interfejs.getWymiarPolaY())?interfejs.getWymiarPolaY():interfejs.getWymiarPolaX())*0.67);
                 paint(getGraphics());
                 paint(getGraphics());
             }
@@ -123,7 +123,7 @@ public class Gra  extends JFrame{
                 interfejs.setSzerokosc(SwHex.Baza().getSzerokosc());
                 interfejs.setWymiarPolaX(interfejs.getWysokoscOkna()/interfejs.getSzerokosc());
                 interfejs.setWymiarPolaY(interfejs.getWysokoscOkna()/interfejs.getWysokosc());
-                interfejs.setWymiarPola(((interfejs.getWymiarPolaX()>interfejs.getWymiarPolaY())?interfejs.getWymiarPolaX():interfejs.getWymiarPolaY())*0.67);
+                interfejs.setWymiarPola(((interfejs.getWymiarPolaX()>interfejs.getWymiarPolaY())?interfejs.getWymiarPolaY():interfejs.getWymiarPolaX())*0.67);
                 paint(getGraphics());
 
                 paint(getGraphics());
