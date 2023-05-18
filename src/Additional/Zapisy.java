@@ -4,9 +4,11 @@ package Additional;
 import Swiat_i_org.*;
 import Swiat_i_org.Animals.*;
 import Swiat_i_org.Plants.*;
+import Additional.Constants;
 
 import javax.swing.*;
 import java.io.*;
+import java.util.Vector;
 
 public class Zapisy {
     public void zapisz(Swiat world){
@@ -17,11 +19,15 @@ public class Zapisy {
                 file.createNewFile();
             }
             FileWriter fileWriter = new FileWriter(file);
-            fileWriter.write(world.getWysokosc()+" "+ world.getSzerokosc()+" "+world.getTyp()+"\n");
+            if(world instanceof SwZwykly){
+                fileWriter.write(world.getWysokosc()+" "+ world.getSzerokosc()+" ZWYKLY"+"\n");}
+            else{
+                fileWriter.write(world.getWysokosc()+" "+ world.getSzerokosc()+" HEX"+"\n");
+            }
             for(Organizm org : world.getOrganizmy()){
                 fileWriter.write(org.toString()+" "+org.getSila()+" "+org.getWiek()+" "+org.getPozycja().getY()+" "+org.getPozycja().getX());
                 if(org instanceof Czlowiek){
-                    fileWriter.write(" "+((Czlowiek)org).ultTury);
+                    fileWriter.write(" "+((Czlowiek)org).getUltTury());
                 }
                 fileWriter.write("\n");
             }
@@ -40,11 +46,12 @@ public class Zapisy {
             String line;
             Swiat world;
             String[] firstLine = reader.readLine().split(" ");
-                Swiat.Typ typ = Swiat.Typ.Zwykly;
-                if(firstLine[2].equals("Hex")){
-                    typ = Swiat.Typ.Hex;
-                }
-                world = new Swiat(Integer.parseInt(firstLine[0]),Integer.parseInt(firstLine[1]), typ);
+//                Swiat.Typ typ = Swiat.Typ.Zwykly;
+//                if(firstLine[2].equals("Hex")){
+//                    typ = Swiat.Typ.Hex;
+//                }
+            ///NAPRAW ZAPISU TU BO SIE BEDZIE LOSOWO TWORZYLO
+                Vector<Organizm> orgs = new Vector<>();
             while ((line = reader.readLine()) != null){
                 String[] tokens = line.split(" ");
                 Organizm org = null;
@@ -63,27 +70,37 @@ public class Zapisy {
                 if(tokens[0].equals("ZOLW")){
                     org = new Zolw(Integer.parseInt(tokens[1]),Integer.parseInt(tokens[2]), new Punkt(Integer.parseInt(tokens[3]),Integer.parseInt(tokens[4])));
                 }
-               /* if(tokens[0].equals("BARSZCZ_SOSNOWSKIEGO")){
-                    org = new BarszczSosnowskiego(Integer.parseInt(tokens[1]),Integer.parseInt(tokens[2]), new Punkt(Integer.parseInt(tokens[3]),Integer.parseInt(tokens[4])));
+                if(tokens[0].equals("BARSZCZ_SOSNOWSKIEGO")){
+                    org = new BarszczSosnowskiego(Integer.parseInt(tokens[2]), new Punkt(Integer.parseInt(tokens[3]),Integer.parseInt(tokens[4])));
                 }
-                if(tokens[0].equals("ANTYLOPA")){
-                    org = new Antylopa(Integer.parseInt(tokens[1]),Integer.parseInt(tokens[2]), new Punkt(Integer.parseInt(tokens[3]),Integer.parseInt(tokens[4]));
+                 if(tokens[0].equals("GUARANA")){
+                    org = new Guarana(Integer.parseInt(tokens[2]), new Punkt(Integer.parseInt(tokens[3]),Integer.parseInt(tokens[4])));
                 }
-                if(tokens[0].equals("ANTYLOPA")){
-                    org = new Antylopa(Integer.parseInt(tokens[1]),Integer.parseInt(tokens[2]), new Punkt(Integer.parseInt(tokens[3]),Integer.parseInt(tokens[4]));
+                if(tokens[0].equals("MLECZ")){
+                    org = new Mlecz(Integer.parseInt(tokens[2]), new Punkt(Integer.parseInt(tokens[3]),Integer.parseInt(tokens[4])));
                 }
-                if(tokens[0].equals("ANTYLOPA")){
-                    org = new Antylopa(Integer.parseInt(tokens[1]),Integer.parseInt(tokens[2]), new Punkt(Integer.parseInt(tokens[3]),Integer.parseInt(tokens[4]));
+                if(tokens[0].equals("TRAWA")){
+                    org = new Trawa(Integer.parseInt(tokens[2]), new Punkt(Integer.parseInt(tokens[3]),Integer.parseInt(tokens[4])));
                 }
-                if(tokens[0].equals("ANTYLOPA")){
-                    org = new Antylopa(Integer.parseInt(tokens[1]),Integer.parseInt(tokens[2]), new Punkt(Integer.parseInt(tokens[3]),Integer.parseInt(tokens[4]));
+                if(tokens[0].equals("WILCZE_JAGODY")){
+                    org = new WilczeJagody(Integer.parseInt(tokens[2]), new Punkt(Integer.parseInt(tokens[3]),Integer.parseInt(tokens[4])));
                 }
-                if(tokens[0].equals("ANTYLOPA")){
-                    org = new Antylopa(Integer.parseInt(tokens[1]),Integer.parseInt(tokens[2]), new Punkt(Integer.parseInt(tokens[3]),Integer.parseInt(tokens[4]));
-                }*/
-                world.addOrg(org);
+                 if(tokens[0].equals("CZLOWIEK")){
+                    org = new Czlowiek(Integer.parseInt(tokens[1]),Integer.parseInt(tokens[2]), new Punkt(Integer.parseInt(tokens[3]),Integer.parseInt(tokens[4])), Integer.parseInt(tokens[5]));
+                }
+                orgs.add(org);
             }
-            return world;
+            if(firstLine[2].equals("ZWYKLY")){
+            world = new SwZwykly(Integer.parseInt(firstLine[0]),Integer.parseInt(firstLine[1]),orgs);
+            world.setKom(new Komentator());
+                return world;
+            }
+            if(firstLine[2].equals("HEX")){
+                world = new SwHex(Integer.parseInt(firstLine[0]),Integer.parseInt(firstLine[1]),orgs);
+                world.setKom(new Komentator());
+                return world;
+            }
+
         }
        catch(IOException e){
             e.printStackTrace();

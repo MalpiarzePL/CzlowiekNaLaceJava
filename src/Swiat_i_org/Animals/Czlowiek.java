@@ -1,5 +1,6 @@
 package Swiat_i_org.Animals;
 
+import Additional.Constants;
 import Additional.Punkt;
 import Swiat_i_org.Zwierze;
 
@@ -7,16 +8,20 @@ import java.awt.*;
 import java.util.Random;
 
 public class Czlowiek extends Zwierze{
-    public static final int SILA = 5;
-    public static final int INICJATYWA = 4;
-    public int ultTury;
+    private int ultTury;
     public Czlowiek(Punkt pkt){
-        super(pkt,SILA,INICJATYWA);
+        super(pkt,Constants.SILA_CZLOWIEKA,Constants.INICJATYWA_CZLOWIEKA);
         ultTury = 0;
     }
     public Czlowiek(int sila,int wiek, Punkt pkt,int tury){
-        super(pkt,sila,INICJATYWA,wiek);
+        super(pkt,sila,Constants.INICJATYWA_CZLOWIEKA,wiek);
         ultTury = tury;
+    }
+    public int getUltTury(){
+        return ultTury;
+    }
+    public void setUltTury(int cd){
+        ultTury = cd;
     }
     @Override
     public void akcja(){
@@ -56,6 +61,12 @@ public class Czlowiek extends Zwierze{
             case 4:
                 rusz(new Punkt(0,zasiegRuch));
                 break;
+            case 6:
+                rusz(new Punkt(-zasiegRuch,zasiegRuch));
+                break;
+            case 7:
+                rusz(new Punkt(zasiegRuch,-zasiegRuch));
+                break;
         }
     }
 
@@ -70,7 +81,7 @@ public class Czlowiek extends Zwierze{
     }
     @Override
     public Color rysowanie(){
-        return new Color (255,0,0);
+        return Constants.KOLOR_CZLOWIEKA;
     }
 
 }

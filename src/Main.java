@@ -1,9 +1,10 @@
-import gui.Gra;
+
+import gui.OknoPoczatkowe;
 
 
 public class Main {
     public static void main(String[] args) {
-        Gra game = new Gra(Gra.DOMYSLNA_WYSOKOSC,Gra.DOMYSLNA_SZEROKOSC);
-        game.graj();
+        OknoPoczatkowe okno = new OknoPoczatkowe();
+        okno.foo();
     }
-} ////// breakpoint w sweicie
+}

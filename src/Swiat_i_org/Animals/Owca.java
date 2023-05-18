@@ -1,18 +1,17 @@
 package Swiat_i_org.Animals;
 
+import Additional.Constants;
 import Additional.Punkt;
 import Swiat_i_org.Zwierze;
 
 import java.awt.*;
 
 public class Owca extends Zwierze {
-    public static final int SILA = 4;
-    public static final int INICJATYWA = 4;
     public Owca(Punkt pkt){
-        super(pkt,SILA,INICJATYWA);
+        super(pkt,Constants.SILA_OWCY,Constants.INICJATYWA_OWCY);
     }
     public Owca(int sila,int wiek, Punkt pkt){
-        super(pkt,sila,INICJATYWA,wiek);
+        super(pkt,sila,Constants.INICJATYWA_OWCY,wiek);
     }
     @Override
     public Owca kopia(){
@@ -25,6 +24,6 @@ public class Owca extends Zwierze {
     }
     @Override
     public Color rysowanie(){
-        return new Color (255, 255, 255);
+        return Constants.KOLOR_OWCY;
     }
 }

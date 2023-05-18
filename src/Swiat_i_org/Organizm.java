@@ -5,12 +5,12 @@ import java.awt.*;
 
 public abstract class Organizm {
     private int sila;
-    private int inicjatywa;
+    private final int inicjatywa;
     private int wiek;
     private boolean zyje;
     private Swiat swiat;
     protected Punkt pozycja;
-    public boolean czyRozmnozony;
+    private boolean czyRozmnozony;
 
     Organizm(Punkt pkt, int sila, int inicjatywa){
         this.pozycja = pkt;
@@ -25,6 +25,14 @@ public abstract class Organizm {
         this.inicjatywa = inicjatywa;
         this.zyje = true;
         this.wiek = wiek;
+    }
+
+    public boolean stanRozmnozenia(){
+        return czyRozmnozony;
+    }
+
+    public void setRozmnozenie(boolean val){
+        this.czyRozmnozony = val;
     }
 
     public abstract void akcja();
@@ -57,14 +65,16 @@ public abstract class Organizm {
         this.sila = sil;
     }
     public void zabij(){
-        //dodaj komentatora
+        String str = new String();
+        str = (this+" umiera na pozycji "+this.getPozycja().toString());
+        this.swiat.getKom().dodajKom(str);
         this.zyje = false;
     }
     public Swiat getSwiat(){return swiat;}
     public boolean czyUcieka(){
         return false;
     }
-    public void cofnijSie(){};
+    public void cofnijSie(){}
     public boolean ucieczka(){
         boolean wynik = czyUcieka();
         if(wynik){
@@ -84,9 +94,7 @@ public abstract class Organizm {
     public void setSwiat(Swiat world){
         this.swiat = world;
     }
-    protected boolean dobryWech(){
-        return false;
-    }
+
     public void reakcjaNaOrg(Organizm org){}
     public boolean czyOdbilAtak(Organizm atakujacy){
         return false;

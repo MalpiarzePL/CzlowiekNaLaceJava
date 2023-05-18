@@ -4,34 +4,112 @@ import java.util.Random;
 import java.util.Vector;
 import Additional.*;
 import Swiat_i_org.Animals.*;
+import Swiat_i_org.Plants.*;
+import Additional.Constants;
 
 
-public class Swiat {
+abstract public class Swiat {
     private final int wysokosc;
     private final int szerokosc;
     Vector<Organizm> organizmy;
     private Komentator kom;
-    private Typ typ = Typ.Zwykly;
+//    private Typ typ = Typ.Zwykly;
     public int ruchCzlowieka = 0; //0-stoj 1-gora 2-dol 3-lewo 4-prawo 5-aktywacja mocy
 
-    public enum Typ{
-        Zwykly,
-        Hex
-    }
+//    public enum Typ{
+//        Zwykly,
+//        Hex
+//    }
 
-    public Swiat(int wys, int szer,Typ typ){
+
+    public Swiat(int wys,int szer, Vector<Organizm>orgs){
         this.wysokosc = wys;
         this.szerokosc = szer;
-        organizmy = new Vector<>();
+        this.organizmy = orgs;
         kom = new Komentator();
-        this.typ = typ;
+        for(Organizm org : organizmy){
+            org.setSwiat(this);
+        }
     }
+
+    public void setKom(Komentator kom){
+        this.kom=kom;
+    }
+    public Swiat(int wys, int szer){
+        organizmy = new Vector<>();
+        this.wysokosc = wys;
+        this.szerokosc = szer;
+        kom = new Komentator();
+//        this.typ = Typ.Zwykly;
+        Random rand = new Random();
+        for(int y = 0; y < wys; y++){
+            for(int x = 0; x < szer; x++){
+                int randomNum = rand.nextInt(27);
+                switch(randomNum) {
+                    case 0:
+                        organizmy.add(new Antylopa(new Punkt(y,x)));
+                        break;
+                    case 1:
+                        organizmy.add(new BarszczSosnowskiego(new Punkt(y,x)));
+                        break;
+                    case 2:
+                        organizmy.add(new Guarana(new Punkt(y,x)));
+                        break;
+                    case 3:
+                        organizmy.add(new Lis(new Punkt(y,x)));
+                        break;
+                    case 4:
+                        organizmy.add(new Mlecz(new Punkt(y,x)));
+                        break;
+                    case 5:
+                        organizmy.add(new Owca(new Punkt(y,x)));
+                        break;
+                    case 6:
+                        organizmy.add(new Trawa(new Punkt(y,x)));
+                        break;
+                    case 7:
+                        organizmy.add(new WilczeJagody(new Punkt(y,x)));
+                        break;
+                    case 8:
+                        organizmy.add(new Wilk(new Punkt(y,x)));
+                        break;
+                    case 9:
+                        organizmy.add(new Zolw(new Punkt(y,x)));
+                        break;
+                    default:
+                        break;
+                }
+            }
+        }
+        int czlowiekX = rand.nextInt(szer-1);
+        int czlowiekY = rand.nextInt(wys-1);
+        Organizm help = GetOrgNaPoz(new Punkt(czlowiekY,czlowiekX));
+        if(help != null) {
+            for (Organizm org : organizmy) {
+                if (org == help) {
+                    organizmy.remove(org);
+                    break;
+                }
+            }
+        }
+        organizmy.add(new Czlowiek(new Punkt(czlowiekY,czlowiekX)));
+        for(Organizm org : organizmy){
+            org.setSwiat(this);
+        }
+    }
+//    public Swiat(int wys, int szer/*,Typ typ*/){
+//        this.wysokosc = wys;
+//        this.szerokosc = szer;
+//        organizmy = new Vector<>();
+//        kom = new Komentator();
+//        //this.typ = typ;
+//    }
 
     public boolean wlaczMoc(){
         for(Organizm org : organizmy){
             if(org instanceof Czlowiek){
-                if(((Czlowiek) org).ultTury == 0){
-                    ((Czlowiek) org).ultTury = 10;
+                if(((Czlowiek) org).getUltTury() == 0){
+                    ((Czlowiek) org).setUltTury(10);
                     return true;
                 }
             }
@@ -56,7 +134,7 @@ public class Swiat {
 
     public void nowaTura(){
         for(Organizm org : organizmy){
-            org.czyRozmnozony = false;
+            org.setRozmnozenie(false);
         }
     }
     public int getWysokosc(){
@@ -79,9 +157,9 @@ public class Swiat {
             }
         }
     }
-    public Typ getTyp(){
-        return typ;
-    }
+//    public Typ getTyp(){
+//        return typ;
+//    }
 
     public Organizm kolidOrg(Organizm org){
         for(Organizm org1 : organizmy){
@@ -101,83 +179,8 @@ public class Swiat {
     public Komentator getKom(){
         return kom;
     }
-
-    public static Swiat Baza(Typ typ){
-        Swiat world = new Swiat(10,10,typ);
-        //world.addOrg(new Czlowiek(new Punkt(5,5)));
-
-        return world;
-    }
-    public Punkt slabsiObok(Punkt pkt){
-        Vector<Punkt> punkty = new Vector<>();
-        Punkt pkt1 = pkt.changeNew(new Punkt(1,0));
-        Punkt pkt2 = pkt.changeNew(new Punkt(-1,0));
-        Punkt pkt3 = pkt.changeNew(new Punkt(0,1));
-        Punkt pkt4 = pkt.changeNew(new Punkt(0,-1));
-        if(GetOrgNaPoz(pkt1) != null && GetOrgNaPoz(pkt).getSila() >= GetOrgNaPoz(pkt1).getSila()){
-            punkty.add(pkt1);
-        }
-        if(GetOrgNaPoz(pkt2) != null && GetOrgNaPoz(pkt).getSila() >= GetOrgNaPoz(pkt2).getSila()){
-            punkty.add(pkt2);
-        }
-        if(GetOrgNaPoz(pkt3) != null && GetOrgNaPoz(pkt).getSila() >= GetOrgNaPoz(pkt3).getSila()){
-            punkty.add(pkt3);
-        }
-        if(GetOrgNaPoz(pkt4) != null && GetOrgNaPoz(pkt).getSila() >= GetOrgNaPoz(pkt4).getSila()){
-            punkty.add(pkt4);
-        }
-        if(punkty.isEmpty()){
-            return null;
-        }
-        Random rand = new Random();
-        int randomNum = rand.nextInt(punkty.size());
-        return punkty.get(randomNum);
-    }
-    public Vector<Punkt> wektorZajetychWokol(Punkt pkt){
-        Vector<Punkt> punkty = new Vector<>();
-        Punkt pkt1 = pkt.changeNew(new Punkt(1,0));
-        Punkt pkt2 = pkt.changeNew(new Punkt(-1,0));
-        Punkt pkt3 = pkt.changeNew(new Punkt(0,1));
-        Punkt pkt4 = pkt.changeNew(new Punkt(0,-1));
-        if(GetOrgNaPoz(pkt1) != null){
-            punkty.add(pkt1);
-        }
-        if(GetOrgNaPoz(pkt2) != null){
-            punkty.add(pkt2);
-        }
-        if(GetOrgNaPoz(pkt3) != null){
-            punkty.add(pkt3);
-        }
-        if(GetOrgNaPoz(pkt4) != null ){
-            punkty.add(pkt4);
-        }
-        return punkty;
-    }
-    public Punkt wolnePoleObok(Punkt pkt){
-        Vector<Punkt> punkty = new Vector<>();
-        Punkt pkt1 = pkt.changeNew(new Punkt(1,0));
-        Punkt pkt2 = pkt.changeNew(new Punkt(-1,0));
-        Punkt pkt3 = pkt.changeNew(new Punkt(0,1));
-        Punkt pkt4 = pkt.changeNew(new Punkt(0,-1));
-        if(GetOrgNaPoz(pkt1) == null && !pkt1.pozaPolem(this.getWysokosc(),this.getSzerokosc())){
-            punkty.add(pkt1);
-        }
-        if(GetOrgNaPoz(pkt2) == null && !pkt2.pozaPolem(this.getWysokosc(),this.getSzerokosc())){
-            punkty.add(pkt2);
-        }
-        if(GetOrgNaPoz(pkt3) == null && !pkt3.pozaPolem(this.getWysokosc(),this.getSzerokosc())){
-            punkty.add(pkt3);
-        }
-        if(GetOrgNaPoz(pkt4) == null && !pkt4.pozaPolem(this.getWysokosc(),this.getSzerokosc())){
-            punkty.add(pkt4);
-        }
-        if(punkty.isEmpty()){
-            return null;
-        }
-        Random rand = new Random();
-        int randomNum = rand.nextInt(punkty.size());
-        return punkty.get(randomNum);
-    }
+    abstract public Vector<Punkt> wektorZajetychWokol(Punkt pkt);
+   abstract public Punkt wolnePoleObok(Punkt pkt);
 
     public Organizm GetOrgNaPoz(Punkt pkt){
         Organizm org = null;

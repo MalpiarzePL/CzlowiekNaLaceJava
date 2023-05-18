@@ -6,121 +6,161 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import Additional.Constants;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import Additional.Zapisy;
+import com.sun.xml.internal.bind.v2.runtime.reflect.opt.Const;
 
 public class Gra  extends JFrame{
 
-    Zapisy zapisy;
-    public static final int DOMYSLNA_WYSOKOSC = 600;
-    public static final int DOMYSLNA_SZEROKOSC = 1500;
-
+    private Zapisy zapisy;
     private JButton tura;
-    private final Interfejs interfejs;
-    private final Legenda legenda;
-    private final KomentatorGui komentator;
-    private JMenuItem menuItemBazowy;
-
-    private JMenuItem menuItemBazowyHex;
-
-    private JMenuItem menuItemWczytaj;
-    private JMenuItem menuItemZapisz;
+    private Interfejs interfejs;
+    private Legenda legenda;
+    private KomentatorGui komentator;
+    private JMenuItem PustyZwyklyMenu;
+    private JMenuItem PustyHexMenu;
+    private JMenuItem WczytajMenu;
+    private JMenuItem ZapiszMenu;
 
     public void graj(){
         setVisible(true);
     }
-    public Gra(int wysokosc, int szerokosc){
-        setSize(szerokosc,wysokosc);
-        setMinimumSize(new Dimension(szerokosc,wysokosc));
+
+    public Gra(int wysOkna, int szerOkna, int szerokosc, int wysokosc, int rodzaj){
+        setSize(szerOkna,wysOkna);
+        setMinimumSize(new Dimension(szerOkna,wysOkna));
         zapisy = new Zapisy();
         revalidate();
 
-        setTitle("CZLOWIEK NA LACE");
+        setTitle("ADAM BIAŁEK 193677");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        interfejs = new Interfejs(DOMYSLNA_WYSOKOSC *8/10,Swiat.Baza(Swiat.Typ.Zwykly));
-        legenda = new Legenda(DOMYSLNA_WYSOKOSC *8/10,275);
-        komentator = new KomentatorGui(DOMYSLNA_WYSOKOSC *8/10, 500,interfejs.getSwiat().getKom());
+        if(rodzaj == 1) {
+            interfejs = new Interfejs(Constants.WYSOKOSC_INTERFACE, new SwZwykly(wysokosc, szerokosc));
+        } else if (rodzaj == 2) {
+            interfejs = new Interfejs(Constants.WYSOKOSC_INTERFACE, new SwHex(wysokosc, szerokosc));
+        }
+        legenda = new Legenda(Constants.WYSOKOSC_INTERFACE,Constants.SZEROKOSC_LEGENDY);
+        komentator = new KomentatorGui(Constants.WYSOKOSC_INTERFACE, Constants.SZEROKOSC_KOMENTATORA,interfejs.getSwiat().getKom());
         interfejs.setKom(komentator);
         inicjujMenuGorne();
-        inicjujPanelGlowny();
+        tworzGUI();
     }
-    private void inicjujLegende(){
 
-    }
     private void inicjujMenuGorne(){
 
         JMenuBar menuBar = new JMenuBar();
 
-        JMenu menuNowy = new JMenu("Nowy");
-        JMenu menuPlik = new JMenu("Plik");
+        JMenu pusteSwiaty = new JMenu("Puste");
+        JMenu obslugaZapisu = new JMenu("Plik");
 
-        inicjujGuzikiMenuGornego();
+        tworzPrzyciskiGorne();
 
-        menuNowy.add(menuItemBazowy);
-        menuNowy.add(menuItemBazowyHex);
+        pusteSwiaty.add(PustyZwyklyMenu);
+        pusteSwiaty.add(PustyHexMenu);
 
-        menuPlik.add(menuItemWczytaj);
-        menuPlik.add(menuItemZapisz);
+        obslugaZapisu.add(WczytajMenu);
+        obslugaZapisu.add(ZapiszMenu);
 
-        menuBar.add(menuNowy);
-        menuBar.add(menuPlik);
+        menuBar.add(pusteSwiaty);
+        menuBar.add(obslugaZapisu);
 
         setJMenuBar(menuBar);
 
     }
-    private void inicjujGuzikiMenuGornego() {
+    private void tworzPrzyciskiGorne() {
 
-        menuItemBazowy = new JMenuItem("bazowy_kartezjanski");
-        menuItemBazowyHex = new JMenuItem("bazowy_hex");
-        menuItemWczytaj = new JMenuItem("wczytaj");
-        menuItemZapisz = new JMenuItem("zapisz");
+        PustyZwyklyMenu = new JMenuItem("Pusty_zwykly");
+        PustyHexMenu = new JMenuItem("Pusty_hex");
+        WczytajMenu = new JMenuItem("wczytaj");
+        ZapiszMenu = new JMenuItem("zapisz");
 
-        menuItemZapisz.addActionListener(new ActionListener() {
+        ZapiszMenu.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 zapisy.zapisz(interfejs.getSwiat());
             }
         });
-        menuItemWczytaj.addActionListener(new ActionListener() {
+        WczytajMenu.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 Swiat world = zapisy.wczytaj();
                 interfejs.setSwiat(world);
+                komentator.setKom(world.getKom());
+                /*interfejs.wysokosc = world.getWysokosc();
+                interfejs.szerokosc = world.getSzerokosc();
+                interfejs.wymiarPolaX = interfejs.wysokoscOkna/interfejs.szerokosc;
+                interfejs.wymiarPolaY = interfejs.wysokoscOkna/interfejs.wysokosc;
+                interfejs.wymiarPola = ((interfejs.wymiarPolaX>interfejs.wymiarPolaY)?interfejs.wymiarPolaX:interfejs.wymiarPolaY)*0.67;
+                */
+                interfejs.setWysokosc(world.getWysokosc());
+                interfejs.setSzerokosc(world.getSzerokosc());
+                interfejs.setWymiarPolaX(interfejs.getWysokoscOkna()/interfejs.getSzerokosc());
+                interfejs.setWymiarPolaY(interfejs.getWysokoscOkna()/interfejs.getWysokosc());
+                interfejs.setWymiarPola(((interfejs.getWymiarPolaX()>interfejs.getWymiarPolaY())?interfejs.getWymiarPolaX():interfejs.getWymiarPolaY())*0.67);
+                paint(getGraphics());
             }
         });
 
-        menuItemBazowy.addActionListener(new ActionListener() {
+        PustyZwyklyMenu.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
 
-                interfejs.setSwiat(Swiat.Baza(Swiat.Typ.Zwykly));
-
+                interfejs.setSwiat(SwZwykly.Baza());
+                komentator.setKom(interfejs.getSwiat().getKom());
+                /*interfejs.wysokosc = SwZwykly.Baza().getWysokosc();
+                interfejs.szerokosc = SwZwykly.Baza().getSzerokosc();
+                interfejs.wymiarPolaX = interfejs.wysokoscOkna/interfejs.szerokosc;
+                interfejs.wymiarPolaY = interfejs.wysokoscOkna/interfejs.wysokosc;
+                interfejs.wymiarPola = ((interfejs.wymiarPolaX>interfejs.wymiarPolaY)?interfejs.wymiarPolaX:interfejs.wymiarPolaY)*0.67;
+                */
+                interfejs.setWysokosc(SwZwykly.Baza().getWysokosc());
+                interfejs.setSzerokosc(SwZwykly.Baza().getSzerokosc());
+                interfejs.setWymiarPolaX(interfejs.getWysokoscOkna()/interfejs.getSzerokosc());
+                interfejs.setWymiarPolaY(interfejs.getWysokoscOkna()/interfejs.getWysokosc());
+                interfejs.setWymiarPola(((interfejs.getWymiarPolaX()>interfejs.getWymiarPolaY())?interfejs.getWymiarPolaX():interfejs.getWymiarPolaY())*0.67);
+                paint(getGraphics());
+                paint(getGraphics());
             }
 
         });
 
 
-        menuItemBazowyHex.addActionListener(new ActionListener() {
+        PustyHexMenu.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
 
-                interfejs.setSwiat(Swiat.Baza(Swiat.Typ.Hex));
+                interfejs.setSwiat(SwHex.Baza());
+                komentator.setKom(interfejs.getSwiat().getKom());
+                /*interfejs.wysokosc = SwHex.Baza().getWysokosc();
+                interfejs.szerokosc = SwHex.Baza().getSzerokosc();
+                interfejs.wymiarPolaX = interfejs.wysokoscOkna/interfejs.szerokosc;
+                interfejs.wymiarPolaY = interfejs.wysokoscOkna/interfejs.wysokosc;
+                interfejs.wymiarPola = ((interfejs.wymiarPolaX>interfejs.wymiarPolaY)?interfejs.wymiarPolaX:interfejs.wymiarPolaY)*0.67;
+                */
+                interfejs.setWysokosc(SwHex.Baza().getWysokosc());
+                interfejs.setSzerokosc(SwHex.Baza().getSzerokosc());
+                interfejs.setWymiarPolaX(interfejs.getWysokoscOkna()/interfejs.getSzerokosc());
+                interfejs.setWymiarPolaY(interfejs.getWysokoscOkna()/interfejs.getWysokosc());
+                interfejs.setWymiarPola(((interfejs.getWymiarPolaX()>interfejs.getWymiarPolaY())?interfejs.getWymiarPolaX():interfejs.getWymiarPolaY())*0.67);
+                paint(getGraphics());
 
+                paint(getGraphics());
             }
         });
     }
-    private void inicjujPanelGlowny(){
+    private void tworzGUI(){
 
 
-        inicjujGuziki();
+        tworzNastepnaTuraBtn();
 
         JPanel panelGuziki = new JPanel();
 
 
 
-        GridLayout layout = new GridLayout(0,2);
+        GridLayout layout = new GridLayout(0,1);
         panelGuziki.setLayout(layout);
 
         panelGuziki.add(tura);
@@ -131,7 +171,7 @@ public class Gra  extends JFrame{
         JSplitPane splitPane = new JSplitPane();
 
         splitPane.setEnabled(false);
-        splitPane.setDividerLocation( DOMYSLNA_WYSOKOSC * 8 / 10);
+        splitPane.setDividerLocation(Constants.WYSOKOSC_INTERFACE);
         splitPane.setOrientation(JSplitPane.VERTICAL_SPLIT);
 
         splitPane.addMouseListener(interfejs);
@@ -150,7 +190,7 @@ public class Gra  extends JFrame{
 
 
     }
-    private void inicjujGuziki() {
+    private void tworzNastepnaTuraBtn() {
 
         tura = new JButton("nastepna tura");
         //dziennikButton = new JButton("dziennik");

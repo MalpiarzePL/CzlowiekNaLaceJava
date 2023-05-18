@@ -1,5 +1,6 @@
 package Swiat_i_org.Plants;
 
+import Additional.Constants;
 import Additional.Punkt;
 import Swiat_i_org.Organizm;
 import Swiat_i_org.Roslina;
@@ -11,10 +12,11 @@ import java.util.Vector;
 
 public class BarszczSosnowskiego extends Roslina {
 
-    public static final int SILA = 10;
     public BarszczSosnowskiego(Punkt pkt){
-        super(pkt,SILA);
+        super(pkt,Constants.SILA_BARSZCZU);
     }
+
+    public BarszczSosnowskiego(int wiek, Punkt pkt){super(pkt,Constants.SILA_BARSZCZU,wiek);}
     @Override
     public BarszczSosnowskiego kopia(){
         return new BarszczSosnowskiego(pozycja);
@@ -27,7 +29,7 @@ public class BarszczSosnowskiego extends Roslina {
 
     @Override
     public Color rysowanie(){
-        return new Color (120, 255, 130);
+        return Constants.KOLOR_BARSZCZU;
     }
     @Override
     public void reakcjaNaOrg(Organizm org){

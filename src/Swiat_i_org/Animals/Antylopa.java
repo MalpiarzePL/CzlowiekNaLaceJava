@@ -1,5 +1,6 @@
 package Swiat_i_org.Animals;
 
+import Additional.Constants;
 import Additional.Punkt;
 import Swiat_i_org.Zwierze;
 
@@ -7,14 +8,12 @@ import java.awt.*;
 import java.util.Random;
 
 public class Antylopa extends Zwierze{
-    public static final int SILA = 4;
-    public static final int INICJATYWA = 4;
 
     public Antylopa(Punkt pkt){
-        super(pkt,SILA,INICJATYWA);
+        super(pkt,Constants.SILA_ANTYLOPY,Constants.INICJATYWA_ANTYLOPY);
     }
     public Antylopa(int sila,int wiek, Punkt pkt){
-        super(pkt,sila,INICJATYWA,wiek);
+        super(pkt,sila,Constants.INICJATYWA_ANTYLOPY,wiek);
     }
     @Override
     public Antylopa kopia(){
@@ -27,7 +26,7 @@ public class Antylopa extends Zwierze{
     }
     @Override
     public Color rysowanie(){
-        return new Color (197, 127, 48);
+        return Constants.KOLOR_ANTYLOPY;
     }
     @Override
     public void akcja(){

@@ -1,5 +1,6 @@
 package Swiat_i_org.Animals;
 
+import Additional.Constants;
 import Additional.Punkt;
 import Swiat_i_org.Zwierze;
 import Swiat_i_org.Organizm;
@@ -8,15 +9,13 @@ import java.awt.*;
 import java.util.Random;
 
 public class Zolw extends Zwierze{
-    public static final int SILA = 2;
-    public static final int INICJATYWA = 1;
     public static final int BLOK = 4;
 
     public Zolw(Punkt pkt){
-        super(pkt,SILA,INICJATYWA);
+        super(pkt,Constants.SILA_ZOLWIA,Constants.INICJATYWA_ZOLWIA);
     }
     public Zolw(int sila,int wiek, Punkt pkt){
-        super(pkt,sila,INICJATYWA,wiek);
+        super(pkt,sila,Constants.INICJATYWA_ZOLWIA,wiek);
     }
     @Override
     public Zolw kopia(){
@@ -29,7 +28,7 @@ public class Zolw extends Zwierze{
     }
     @Override
     public Color rysowanie(){
-        return new Color (30, 100, 0);
+        return Constants.KOLOR_ZOLWIA;
     }
     @Override
     public void akcja(){
@@ -41,7 +40,7 @@ public class Zolw extends Zwierze{
     }
     @Override
     public boolean czyOdbilAtak(Organizm atakujacy){
-        if(atakujacy.getSila() >= BLOK){
+        if(atakujacy.getSila() > BLOK){
             return false;
         }
         return true;

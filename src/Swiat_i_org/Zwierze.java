@@ -2,7 +2,7 @@ package Swiat_i_org;
 
 import Additional.*;
 import java.util.Random;
-
+import Additional.Constants;
 public abstract class Zwierze extends Organizm {
     public Punkt poprzedniaPozycja;
     public Zwierze(Punkt pkt, int sila, int inicjatywa){
@@ -44,23 +44,29 @@ public abstract class Zwierze extends Organizm {
                 cofnijSie();
                 return;
             }
+            this.getSwiat().getKom().dodajKom(new String(org+" zabija "+this+" na pozycji "+this.getPozycja().toString()));
             this.zabij();
             this.reakcjaNaOrg(org);
-            this.getSwiat().getKom().dodajKom(new String(org.toString()+" zabija "+this.toString()+" na pozycji "+this.getPozycja().toString()));
         }
         else{
             if(org.czyOdbilAtak(this)){
                 cofnijSie();
                 return;
             }
+            if(org instanceof Roslina) {
+                this.getSwiat().getKom().dodajKom(new String(this + " zjada " + org + " na pozycji " + org.getPozycja().toString()));
+            }
+            else{
+                this.getSwiat().getKom().dodajKom(new String(this + " zabija " + org + " na pozycji " + org.getPozycja().toString()));
+            }
             org.zabij();
             org.reakcjaNaOrg(this);
-            this.getSwiat().getKom().dodajKom(new String(this.toString()+" zabija "+org.toString()+" na pozycji "+org.getPozycja().toString()));
+
         }
     }
 
     public void rozmnazanie(Zwierze zwierz){
-        if(zwierz.getWiek() == 0 || zwierz.czyRozmnozony || this.czyRozmnozony){
+        if(zwierz.getWiek() == 0 || zwierz.stanRozmnozenia() || this.stanRozmnozenia()){
             cofnijSie();
             return;
         }
@@ -74,8 +80,9 @@ public abstract class Zwierze extends Organizm {
             org.setPozycja(pkt);
             org.setWiek(-1);
             this.getSwiat().addOrg(org);
-            this.czyRozmnozony = true;
-            zwierz.czyRozmnozony = true;
+            this.getSwiat().getKom().dodajKom(new String("Zwierzeta z gaturnku "+this+" rozmnozyly sie i powstal nowy organizm na polu "+org.getPozycja().toString()));
+            this.setRozmnozenie(true);
+            zwierz.setRozmnozenie(true);
         }
     }
     public void rusz(Punkt pkt){
@@ -87,7 +94,14 @@ public abstract class Zwierze extends Organizm {
 
     public void ruchLos(int zasieg){
         Random rand = new Random();
-        int randomNum = rand.nextInt(4);
+        int bound;
+        if(this.getSwiat() instanceof SwZwykly){
+            bound = 4;
+        }
+        else{
+            bound = 6;
+        }
+        int randomNum = rand.nextInt(bound);
         Punkt wektorRuchu = new Punkt(0,0);
         if(randomNum == 0){
             wektorRuchu = new Punkt(zasieg,0);
@@ -100,6 +114,12 @@ public abstract class Zwierze extends Organizm {
         }
         if(randomNum == 3){
             wektorRuchu = new Punkt(0,-zasieg);
+        }
+        if(randomNum == 4){
+            wektorRuchu = new Punkt(-zasieg,zasieg);
+        }
+        if(randomNum == 5){
+            wektorRuchu = new Punkt(zasieg,-zasieg);
         }
         rusz(wektorRuchu);
     }

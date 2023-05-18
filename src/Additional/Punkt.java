@@ -1,4 +1,5 @@
 package Additional;
+import Additional.Constants;
 
 public class Punkt {
     private int x;

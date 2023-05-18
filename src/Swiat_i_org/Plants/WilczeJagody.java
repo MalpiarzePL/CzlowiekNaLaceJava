@@ -1,5 +1,6 @@
 package Swiat_i_org.Plants;
 
+import Additional.Constants;
 import Additional.Punkt;
 import Swiat_i_org.Organizm;
 import Swiat_i_org.Roslina;
@@ -8,10 +9,10 @@ import java.awt.*;
 import java.util.Random;
 
 public class WilczeJagody extends Roslina{
-    public static final int SILA = 99;
     public WilczeJagody(Punkt pkt){
-        super(pkt,SILA);
+        super(pkt,Constants.SILA_JAGOD);
     }
+    public WilczeJagody(int wiek, Punkt pkt){super(pkt,Constants.SILA_JAGOD,wiek);}
     @Override
     public WilczeJagody kopia(){
         return new WilczeJagody(pozycja);
@@ -24,7 +25,7 @@ public class WilczeJagody extends Roslina{
 
     @Override
     public Color rysowanie(){
-        return new Color (148, 0, 211);
+        return Constants.KOLOR_JAGOD;
     }
     @Override
     public void reakcjaNaOrg(Organizm org){

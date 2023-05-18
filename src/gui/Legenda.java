@@ -2,10 +2,11 @@ package gui;
 
 import javax.swing.*;
 import java.awt.*;
+import Additional.Constants;
 
 public class Legenda extends JPanel{
-    public int szerokosc;
-    public int wysokosc;
+    private int szerokosc;
+    private int wysokosc;
 
     public Legenda(int wysokosc, int szerokosc){
         this.szerokosc = szerokosc;
@@ -19,66 +20,91 @@ public class Legenda extends JPanel{
         g.fillRect(0,0,szerokosc,wysokosc);
         pokazLegende(g);
     }
-    public void pokazLegende(Graphics g){
-        g.setColor(new Color(255,255,255));
-        g.setFont(new Font(Font.DIALOG,Font.PLAIN,23));
-        g.drawString("Poruszanie - strzalki",0,35);
-        g.drawString("Moc - r",0,70);
+    public void pokazLegende(Graphics g) {
+        g.setColor(Constants.KOLOR_NAPISOW);
+        g.setFont(new Font(Font.DIALOG, Font.PLAIN, 20));
 
-        g.setColor(new Color(255,0,0));
-        g.fillRect(0,80,30,30);
-        g.setColor(new Color(255,255,255));
-        g.drawString("Czlowiek",35,105);
+        int startY = 20;
+        g.drawString("Poruszanie - strzalki", 0, startY);
+        g.drawString("Moc - r", 0, startY + 20);
+        g.drawString("Poruszanie Hex - i,k,m,n,h,u", 0, startY+40);
+        int rectY = startY + 65;
 
-        g.setColor(new Color(197, 127, 48));
-        g.fillRect(0,115,30,30);
-        g.setColor(new Color(255,255,255));
-        g.drawString("Antylopa",35,140);
+        g.setColor(Constants.KOLOR_CZLOWIEKA);
+        g.fillRect(0, rectY, 30, 20);
+        g.setColor(Constants.KOLOR_NAPISOW);
+        g.drawString("Czlowiek", 35, rectY + 20);
 
-        g.setColor(new Color(255, 140, 0));
-        g.fillRect(0,150,30,30);
-        g.setColor(new Color(255,255,255));
-        g.drawString("Lis",35,175);
+        rectY += 35;
 
-        g.setColor(new Color(255, 255, 255));
-        g.fillRect(0,185,30,30);
-        g.setColor(new Color(255,255,255));
-        g.drawString("Owca",35,210);
+        g.setColor(Constants.KOLOR_ANTYLOPY);
+        g.fillRect(0, rectY, 30, 20);
+        g.setColor(Constants.KOLOR_NAPISOW);
+        g.drawString("Antylopa", 35, rectY + 20);
 
-        g.setColor(new Color(128,128,128));
-        g.fillRect(0,220,30,30);
-        g.setColor(new Color(255,255,255));
-        g.drawString("Wilk",35,245);
+        rectY += 35;
 
-        g.setColor(new Color(30, 100, 0));
-        g.fillRect(0,255,30,30);
-        g.setColor(new Color(255,255,255));
-        g.drawString("Zolw",35,280);
+        g.setColor(Constants.KOLOR_LISA);
+        g.fillRect(0, rectY, 30, 20);
+        g.setColor(Constants.KOLOR_NAPISOW);
+        g.drawString("Lis", 35, rectY + 20);
 
-        g.setColor(new Color(120, 255, 130));
-        g.fillRect(0,290,30,30);
-        g.setColor(new Color(255,255,255));
-        g.drawString("Barszcz Sosnowskiego",35,315);
+        rectY += 35;
 
-        g.setColor(new Color(139, 69, 19));
-        g.fillRect(0,325,30,30);
-        g.setColor(new Color(255,255,255));
-        g.drawString("Guarana",35,350);
+        g.setColor(Constants.KOLOR_OWCY);
+        g.fillRect(0, rectY, 30, 20);
+        g.setColor(Constants.KOLOR_NAPISOW);
+        g.drawString("Owca", 35, rectY + 20);
 
-        g.setColor(new Color(255, 255, 0));
-        g.fillRect(0,360,30,30);
-        g.setColor(new Color(255,255,255));
-        g.drawString("Mlecz",35,385);
+        rectY += 35;
 
-        g.setColor(new Color(0,240,0));
-        g.fillRect(0,395,30,30);
-        g.setColor(new Color(255,255,255));
-        g.drawString("Trawa",35,420);
+        g.setColor(Constants.KOLOR_WILKA);
+        g.fillRect(0, rectY, 30, 20);
+        g.setColor(Constants.KOLOR_NAPISOW);
+        g.drawString("Wilk", 35, rectY + 20);
 
-        g.setColor(new Color(148, 0, 211));
-        g.fillRect(0,430,30,30);
-        g.setColor(new Color(255,255,255));
-        g.drawString("Wilcze Jagody",35,455);
+        rectY += 35;
+
+        g.setColor(Constants.KOLOR_ZOLWIA);
+        g.fillRect(0, rectY, 30, 20);
+        g.setColor(Constants.KOLOR_NAPISOW);
+        g.drawString("Zolw", 35, rectY + 20);
+
+        rectY += 35;
+
+        g.setColor(Constants.KOLOR_BARSZCZU);
+        g.fillRect(0, rectY, 30, 20);
+        g.setColor(Constants.KOLOR_NAPISOW);
+        g.drawString("Barszcz Sosnowskiego", 35, rectY + 20);
+
+        rectY += 35;
+
+        g.setColor(Constants.KOLOR_GUARANY);
+        g.fillRect(0, rectY, 30, 20);
+        g.setColor(Constants.KOLOR_NAPISOW);
+        g.drawString("Guarana", 35, rectY + 20);
+
+        rectY += 35;
+
+        g.setColor(Constants.KOLOR_MLECZA);
+        g.fillRect(0, rectY, 30, 20);
+        g.setColor(Constants.KOLOR_NAPISOW);
+        g.drawString("Mlecz", 35, rectY + 20);
+
+        rectY += 35;
+
+        g.setColor(Constants.KOLOR_TRAWY);
+        g.fillRect(0, rectY, 30, 20);
+        g.setColor(Constants.KOLOR_NAPISOW);
+        g.drawString("Trawa", 35, rectY + 20);
+
+        rectY += 35;
+
+        g.setColor(Constants.KOLOR_JAGOD);
+        g.fillRect(0, rectY, 30, 20);
+        g.setColor(Constants.KOLOR_NAPISOW);
+        g.drawString("Wilcze Jagody", 35, rectY + 20);
     }
+
 
 }

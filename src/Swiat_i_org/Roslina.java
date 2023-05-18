@@ -1,16 +1,16 @@
 package Swiat_i_org;
 
+import Additional.Constants;
 import Additional.Punkt;
 
 import java.util.Random;
 
 public abstract class Roslina extends Organizm {
-    public final static int INICJATYWA_ROSLINA = 0;
     public Roslina(Punkt pkt, int sila){
-        super(pkt,sila,INICJATYWA_ROSLINA);
+        super(pkt,sila, Constants.INICJATYWA_ROSLIN);
     }
     public Roslina(Punkt pkt, int sila,int wiek){
-        super(pkt,sila,INICJATYWA_ROSLINA,wiek);
+        super(pkt,sila,Constants.INICJATYWA_ROSLIN,wiek);
     }
     @Override
     public void akcja(){
@@ -25,7 +25,7 @@ public abstract class Roslina extends Organizm {
     }
 
     public void zasiej(){
-        if(!czyRozmnozony) {
+        if(!stanRozmnozenia()) {
             Punkt pkt = getSwiat().wolnePoleObok(this.pozycja);
             if (pkt == null){
                 return;
@@ -33,8 +33,9 @@ public abstract class Roslina extends Organizm {
             Roslina org = (Roslina)this.kopia();
             org.setPozycja(pkt);
             org.setWiek(0);
+            org.setRozmnozenie(true);
             getSwiat().addOrg(org);
-            czyRozmnozony = true;
+            this.getSwiat().getKom().dodajKom(new String(this+" rozsialo sie i powstal nowy organizm na polu "+org.getPozycja()));
         }
     }
 

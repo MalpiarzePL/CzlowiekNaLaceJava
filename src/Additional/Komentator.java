@@ -1,16 +1,21 @@
 package Additional;
 
 import java.util.Vector;
+import Additional.Constants;
 
 public class Komentator {
-    public Vector<String> komentarze;
+    private Vector<String> komentarze;
     public Komentator(){
-        komentarze = new Vector<String>();
+        komentarze = new Vector<>();
     }
     public void czysc(){
         komentarze.clear();
     }
     public void dodajKom(String kom){
         komentarze.add(kom);
+    }
+
+    public Vector<String> getKomentarze(){
+        return komentarze;
     }
 }
